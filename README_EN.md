@@ -1,4 +1,4 @@
-<img src="./icon/logo.png" alt="Logo" width="128" />
+<img align="center" src="./icon/logo.png" alt="Logo" width="128" />
 
 <h1 align="center">BSOD Pomodoro</h1>
 
@@ -10,15 +10,15 @@ English | [简体中文](./README.md)
 
 **Main Window:**
 
-<img src="./icon/interface.png" alt="Interface" width="40%" />
+<img align="center" src="./icon/interface.png" alt="Interface" width="40%" />
 
 **Blue Screen:**
 
-<img src="./icon/blue_screen.png" alt="BlueScreen" width="60%" />
+<img align="center" src="./icon/blue_screen.png" alt="BlueScreen" width="60%" />
 
 **Nyan Cat:**
 
-<img src="./icon/nyan_cat.png" alt="NyanCat" width="60%" />
+<img align="center" src="./icon/nyan_cat.png" alt="NyanCat" width="60%" />
 
 ## 📖 Contents
 
