@@ -135,7 +135,7 @@ The copyright and license notices of each repository are preserved, and the orig
 | Module | Repository | License | Purpose |
 | :-- | :-- | :-- | :-- |
 | [module/blue_screen](./module/blue_screen) | [arpy8/bsod](https://github.com/arpy8/bsod) | [MIT](./module/blue_screen/LICENSE) | Blue screen screensaver |
-| [module/nyan_cat](./module/nyan_cat) | [borealkiss/nyancat.py](https://github.com/borealkiss/nyancat.py) | [Apache-2.0](./module/nyan_cat/LICENSE) | Nyan Cat animation screensaver |
+| [module/nyan_cat](./module/nyan_cat) | [cristy-the-one/nyancat.py](https://github.com/cristy-the-one/nyancat.py) | [Apache-2.0](./module/nyan_cat/LICENSE) | Nyan Cat animation screensaver |
 
 ## ⚖️ Disclaimer
 

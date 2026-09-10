@@ -137,7 +137,7 @@ Pomodoro_BSOD/
 | 模块 | 来源仓库 | 许可证 | 用途 |
 | :-- | :-- | :-- | :-- |
 | [module/blue_screen](./module/blue_screen) | [arpy8/bsod](https://github.com/arpy8/bsod) | [MIT](./module/blue_screen/LICENSE) | 蓝屏死机屏保 |
-| [module/nyan_cat](./module/nyan_cat) | [borealkiss/nyancat.py](https://github.com/borealkiss/nyancat.py) | [Apache-2.0](./module/nyan_cat/LICENSE) | 彩虹猫动画屏保 |
+| [module/nyan_cat](./module/nyan_cat) | [cristy-the-one/nyancat.py](https://github.com/cristy-the-one/nyancat.py) | [Apache-2.0](./module/nyan_cat/LICENSE) | 彩虹猫动画屏保 |
 
 ## ⚖️ 免责声明
 

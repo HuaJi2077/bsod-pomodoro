@@ -2,7 +2,7 @@
 """彩虹猫屏保：全屏 Nyan Cat 动画，运行在独立 QThread 中。
 
 渲染对象（Nyancat / Rainbow / StarManager）均来自原仓库
-borealkiss/nyancat.py（Apache License 2.0, Copyright 2012 Hajime Hikida），
+cristy-the-one/nyancat.py（Apache License 2.0, Copyright 2012 Hajime Hikida），
 本模块仅将其组织为全屏屏保线程：start() 开始播放，stop() 结束退出。
 """
 
