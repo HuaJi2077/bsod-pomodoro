@@ -20,10 +20,13 @@ ENTRY = ROOT / "main.py"
 ICON = ROOT / "icon" / "logo.ico"
 
 # Data files required at runtime; format: "source;dest_dir" (PyInstaller syntax).
+# Only the default presets are bundled: data/settings.json is runtime user
+# state and is written next to the exe by utils/json_config.py, which also
+# falls back to the bundled presets when no user copy exists.
 DATA_FILES = [
     str(ROOT / "icon" / "logo.ico") + ";icon",
     str(ROOT / "module" / "blue_screen" / "assets") + ";module/blue_screen/assets",
-    str(ROOT / "data") + ";data",
+    str(ROOT / "data" / "presets.json") + ";data",
     str(ROOT / "translate" / "app.qm") + ";translate",
     str(ROOT / "translate" / "code.qm") + ";translate",
 ]

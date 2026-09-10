@@ -20,6 +20,9 @@ output/
 # 运行日志
 debug.log
 
+# 运行时生成的用户设置
+data/settings.json
+
 # Qt 翻译编译产物（.ts 入库，.qm 由 lrelease 按需生成）
 *.qm
 

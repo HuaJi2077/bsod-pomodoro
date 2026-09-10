@@ -39,7 +39,7 @@ English | [简体中文](./README.md)
 
 ## ✨ Features
 
-- ⏱️ **Standard Pomodoro Timer**: a complete work / short-break / long-break cycle, with configurable short-break count and pomodoro count; the running status is shown on the status bar in real time.
+- ⏱️ **Standard Pomodoro Timer**: a complete work / short-break / long-break cycle, with configurable focus rounds and pomodoro count; the running status is shown on the status bar in real time.
 - 🎭 **Disguised Breaks**: during breaks, the full-screen screensaver can disguise itself as a "Blue Screen of Death" or the "Nyan Cat" virus GIF animation; a normal popup + system notification is also supported.
 - 😈 **Prank Your Friends**: the built-in prank mode can display the "Blue Screen of Death" or "Nyan Cat" virus screen for a long time, giving your friends a real shock. **Note**: never enable hardcore mode when pranking others; you assume full responsibility for any consequences.
 - 🔒 **Hardcore Mode**: optionally locks the keyboard and mouse during breaks to force you to rest. Use it with great caution, and never on someone else's computer.
@@ -81,7 +81,7 @@ The build artifact is output to `output/BSOD_Pomodoro.exe`.
 
 ## 🛠️ Usage
 
-1. **Choose a preset**: standard pomodoro / prank mode / custom. In custom mode you can freely adjust work time, short-break / long-break duration, short-break count and pomodoro count; changes are saved automatically.
+1. **Choose a preset**: standard pomodoro / prank mode / custom. In custom mode you can freely adjust work time, short-break / long-break duration, focus rounds and pomodoro count; changes are saved automatically.
 2. **Choose a break screensaver**: blue screen of death / Nyan Cat / normal reminder.
 3. **Hardcore mode** (locks the keyboard and mouse during breaks to force you to rest — **use with caution**).
 4. **Start the timer**. While it is running you can pause / resume / stop, and the progress is shown on the status bar in real time.

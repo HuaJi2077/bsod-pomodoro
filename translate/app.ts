@@ -91,8 +91,8 @@
     </message>
     <message>
         <location filename="main_window.ui" line="356"/>
-        <source>短休次数：</source>
-        <translation>Short Breaks:</translation>
+        <source>专注轮数：</source>
+        <translation>Focus Rounds:</translation>
     </message>
     <message>
         <location filename="main_window.ui" line="377"/>
@@ -116,12 +116,12 @@
     </message>
     <message>
         <location filename="main_window.ui" line="509"/>
-        <source>短休息几次后进入长休息</source>
-        <translation>Number of short breaks before a long break</translation>
+        <source>进行几轮专注</source>
+        <translation>Number of focus rounds</translation>
     </message>
     <message>
         <location filename="main_window.ui" line="545"/>
-        <source>整个番茄钟循环几次</source>
+        <source>番茄钟循环几次</source>
         <translation>Number of full pomodoro cycles</translation>
     </message>
     <message>

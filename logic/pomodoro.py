@@ -1,4 +1,4 @@
-﻿# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 """番茄钟主逻辑：预设数据加载、界面配置读取、状态栏信息与休息提醒。
 
 预设数据由根目录 presets.json 数据驱动，时长一律以秒存储
@@ -30,9 +30,9 @@ def phase_label(key: str) -> str:
 
 # 预设配置文件（相对项目根目录，路径由 utils 工具定位，兼容 PyInstaller 打包）
 PRESETS_FILE = "data/presets.json"
-# JSON 缺失或损坏时自定义模式的兜底数值（时长单位：秒）
+# JSON 缺失或损坏时自定义模式的兜底数值（时长单位：秒，标准番茄钟为 4 轮专注）
 _CUSTOM_DEFAULTS = {"work": 1500, "short_rest": 300, "long_rest": 900,
-                     "short_count": 3, "loops": 1}
+                     "focus_rounds": 4, "loops": 1}
 # 休息屏保选项：0 蓝屏死机 / 1 彩虹猫 / 2 普通提示
 SCREENSAVER_NORMAL = 2
 
@@ -150,7 +150,7 @@ class PomodoroLogic(BasePageLogic):
         # 数值变化：自定义模式下即时写回 JSON（QTimeEdit 与 QSpinBox 信号不同）
         for editor in (ui.timeEdit_workTime, ui.timeEdit_shortRestTime, ui.timeEdit_longRestTime):
             editor.timeChanged.connect(self._on_value_changed)
-        for spin in (ui.spinBox_shortRestConut, ui.spinBox_loopCount):
+        for spin in (ui.spinBox_concentration, ui.spinBox_loopCount):
             spin.valueChanged.connect(self._on_value_changed)
 
     def _on_hard_mode_toggled(self, checked: bool) -> None:
@@ -208,7 +208,7 @@ class PomodoroLogic(BasePageLogic):
             "work": time_edit_seconds(ui.timeEdit_workTime),
             "short_rest": time_edit_seconds(ui.timeEdit_shortRestTime),
             "long_rest": time_edit_seconds(ui.timeEdit_longRestTime),
-            "short_count": ui.spinBox_shortRestConut.value(),
+            "focus_rounds": ui.spinBox_concentration.value(),
             "loops": ui.spinBox_loopCount.value(),
         }
         save_json(PRESETS_FILE, {"modes": self._modes, "custom": self._custom})
@@ -220,7 +220,7 @@ class PomodoroLogic(BasePageLogic):
             time_edit_seconds(ui.timeEdit_workTime),
             time_edit_seconds(ui.timeEdit_shortRestTime),
             time_edit_seconds(ui.timeEdit_longRestTime),
-            ui.spinBox_shortRestConut.value(),
+            ui.spinBox_concentration.value(),
             ui.spinBox_loopCount.value(),
         )
         if not self._service.running:
@@ -320,13 +320,13 @@ class PomodoroLogic(BasePageLogic):
         ui.timeEdit_workTime.setTime(seconds_to_qtime(values.get("work", 1500)))
         ui.timeEdit_shortRestTime.setTime(seconds_to_qtime(values.get("short_rest", 300)))
         ui.timeEdit_longRestTime.setTime(seconds_to_qtime(values.get("long_rest", 900)))
-        ui.spinBox_shortRestConut.setValue(values.get("short_count", 3))
+        ui.spinBox_concentration.setValue(values.get("focus_rounds", 4))
         ui.spinBox_loopCount.setValue(values.get("loops", 1))
         self._loading = False
 
         editable = self._is_custom_mode()
         for editor in (ui.timeEdit_workTime, ui.timeEdit_shortRestTime, ui.timeEdit_longRestTime,
-                       ui.spinBox_shortRestConut):
+                       ui.spinBox_concentration):
             editor.setEnabled(editable)
         # 番茄个数不随预设锁定，任何模式下都可自由调整（运行期间才统一锁定）
         ui.spinBox_loopCount.setEnabled(True)
@@ -340,7 +340,7 @@ class PomodoroLogic(BasePageLogic):
         # 其余数值项仅在"自定义"模式下可编辑，预设模式保持只读
         editable = enabled and self._is_custom_mode()
         for editor in (ui.timeEdit_workTime, ui.timeEdit_shortRestTime, ui.timeEdit_longRestTime,
-                       ui.spinBox_shortRestConut):
+                       ui.spinBox_concentration):
             editor.setEnabled(editable)
         # 番茄个数除运行期间外始终可改，此处不按预设锁定
         ui.spinBox_loopCount.setEnabled(enabled)

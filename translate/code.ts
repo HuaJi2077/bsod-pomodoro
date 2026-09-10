@@ -10,8 +10,8 @@
     </message>
     <message>
         <location filename="../logic/help.py" line="23"/>
-        <source>&lt;h3&gt;什么是番茄工作法？&lt;/h3&gt;&lt;p&gt;把任务拆分成一个个专注的「番茄钟」：工作一段时间后短暂休息，劳逸结合，保持节奏。&lt;/p&gt;&lt;p&gt;一轮循环：&lt;b&gt;工作若干次 → 短休息若干次 → 长休息一次 → 下一轮循环&lt;/b&gt;；这样的一轮完整周期称为&lt;b&gt;一个番茄&lt;/b&gt;。&lt;/p&gt;</source>
-        <translation>&lt;h3&gt;What is the Pomodoro Technique?&lt;/h3&gt;&lt;p&gt;Break your tasks into focused &quot;pomodoros&quot;: work for a while, then take a short break — balance effort and rest to keep your rhythm.&lt;/p&gt;&lt;p&gt;One cycle: &lt;b&gt;several work sessions → several short breaks → one long break → next cycle&lt;/b&gt;; each complete cycle is called &lt;b&gt;one pomodoro&lt;/b&gt;.&lt;/p&gt;</translation>
+        <source>&lt;h3&gt;什么是番茄工作法？&lt;/h3&gt;&lt;p&gt;把任务拆分成一个个专注的「番茄钟」：工作一段时间后短暂休息，劳逸结合，保持节奏。&lt;/p&gt;&lt;p&gt;一轮循环：&lt;b&gt;专注若干轮（轮间短休息）→ 长休息一次 → 下一轮循环&lt;/b&gt;；标准番茄钟为 4 轮专注，这样的一轮完整周期称为&lt;b&gt;一个番茄&lt;/b&gt;。&lt;/p&gt;</source>
+        <translation>&lt;h3&gt;What is the Pomodoro Technique?&lt;/h3&gt;&lt;p&gt;Break your tasks into focused &quot;pomodoros&quot;: work for a while, then take a short break — balance effort and rest to keep your rhythm.&lt;/p&gt;&lt;p&gt;One cycle: &lt;b&gt;several focus rounds (short breaks in between) → one long break → next cycle&lt;/b&gt;; the standard is 4 focus rounds, and each complete cycle is called &lt;b&gt;one pomodoro&lt;/b&gt;.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../logic/help.py" line="34"/>

@@ -6,7 +6,7 @@
       "work": 1500,
       "short_rest": 300,
       "long_rest": 900,
-      "short_count": 3,
+      "focus_rounds": 4,
       "loops": 1
     },
     {
@@ -15,15 +15,15 @@
       "work": 0,
       "short_rest": 3600,
       "long_rest": 3600,
-      "short_count": 1,
+      "focus_rounds": 2,
       "loops": 1
     }
   ],
   "custom": {
-    "work": 61,
-    "short_rest": 61,
-    "long_rest": 61,
-    "short_count": 1,
+    "work": 1500,
+    "short_rest": 300,
+    "long_rest": 900,
+    "focus_rounds": 4,
     "loops": 1
   }
 }

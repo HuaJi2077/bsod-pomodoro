@@ -39,23 +39,24 @@ class PomodoroService(QObject):
     # ---------- 对外接口 ----------
 
     def start(self, work_sec: int, short_sec: int, long_sec: int,
-              short_count: int, loops: int) -> None:
+              focus_rounds: int, loops: int) -> None:
         """按配置构建阶段队列并开始倒计时（时长单位均为秒）。
 
-        每轮结构为：(工作 + 短休息) * short_count + 工作 + 长休息，
-        即 short_count 次短休后进入长休息，整个结构重复 loops 轮。
+        每轮结构为 focus_rounds 轮专注：每轮专注后接一次休息，
+        前 focus_rounds-1 轮接短休息，最后一轮接长休息，整个结构重复 loops 轮。
+        标准番茄钟为 4 轮专注（3 短休 + 1 长休）。
         工作时间允许为 0 秒：0 秒的工作阶段不会入队，点击开始后立即进入休息，
         休息结束后无缝衔接下一个休息阶段（整蛊模式）。
         """
         if self._running:
             self.error.emit(self.tr("番茄钟已在运行中"))
             return
-        if work_sec < 0 or min(short_sec, long_sec, short_count, loops) < 1:
+        if work_sec < 0 or min(short_sec, long_sec, focus_rounds, loops) < 1:
             self.error.emit(self.tr("配置无效：除工作时间外，所有数值都必须大于 0"))
             return
 
         self._phases, self._seg_per_loop = self._build_phases(
-            work_sec, short_sec, long_sec, short_count, loops)
+            work_sec, short_sec, long_sec, focus_rounds, loops)
         self._index = 0
         self._remaining = self._phases[0][1]
         self._running = True
@@ -97,9 +98,11 @@ class PomodoroService(QObject):
 
     @staticmethod
     def _build_phases(work_sec: int, short_sec: int, long_sec: int,
-                      short_count: int, loops: int) -> tuple:
+                      focus_rounds: int, loops: int) -> tuple:
         """根据配置构建阶段队列（时长单位均为秒），返回 (阶段队列, 每轮阶段数)。
 
+        每轮为 focus_rounds 轮"专注 + 休息"：轮间休息为短休息，
+        最后一轮的休息为长休息（focus_rounds 为 1 时每轮只有长休息）。
         工作时间为 0 时跳过工作阶段（不产生 0 秒的阶段），
         队列全部由休息组成，实现"开始即休息、休息完还是休息"。
         """
@@ -107,17 +110,14 @@ class PomodoroService(QObject):
         seg_per_loop = 0
         work = (PHASE_WORK, work_sec) if work_sec > 0 else None
         for _ in range(loops):
-            for _ in range(short_count):
+            for round_no in range(focus_rounds):
                 if work is not None:
                     phases.append(work)
                     seg_per_loop += 1
-                phases.append((PHASE_SHORT_REST, short_sec))
+                rest = (PHASE_LONG_REST, long_sec) if round_no == focus_rounds - 1 \
+                    else (PHASE_SHORT_REST, short_sec)
+                phases.append(rest)
                 seg_per_loop += 1
-            if work is not None:
-                phases.append(work)
-                seg_per_loop += 1
-            phases.append((PHASE_LONG_REST, long_sec))
-            seg_per_loop += 1
         return phases, seg_per_loop
 
     def _emit_phase_changed(self) -> None:
