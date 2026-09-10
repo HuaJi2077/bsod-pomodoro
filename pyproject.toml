@@ -1,0 +1,15 @@
+[project]
+name = "pomodoro-bsod"
+version = "0.1.0"
+requires-python = ">=3.13"
+dependencies = [
+    "keyboard>=0.13.5",
+    "pygame>=2.6.1",
+    "pyside6>=6.11.2",
+    "qt-material>=2.17",
+]
+
+[dependency-groups]
+dev = [
+    "pyinstaller>=6.22.2",
+]
