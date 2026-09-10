@@ -1,4 +1,4 @@
-<img src="./icon/logo.png" alt="Logo" style="zoom: 40%;" />
+<img src="./icon/logo.png" alt="Logo" width="128" />
 
 <h1 align="center">BSOD Pomodoro 蓝屏番茄钟</h1>
 
@@ -12,15 +12,15 @@
 
 **软件界面：**
 
-<img src="./icon/interface.png" alt="主界面" style="zoom:30%;" />
+<img src="./icon/interface.png" alt="Interface" width="40%" />
 
 **蓝屏界面：**
 
-<img src="./icon/blue_screen.png" style="zoom: 27%;" />
+<img src="./icon/blue_screen.png" alt="BlueScreen" width="60%" />
 
 **彩虹猫：**
 
-<img src="./icon/nyan_cat.png" style="zoom:20%;" />
+<img src="./icon/nyan_cat.png" alt="NyanCat" width="60%" />
 
 ## 📖 目录
 
