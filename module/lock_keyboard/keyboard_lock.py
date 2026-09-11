@@ -6,19 +6,22 @@
 仅支持 Windows（keyboard 库限制）。
 """
 
-import keyboard
-
 # keyboard 库可屏蔽的按键码范围（原实现为 0~149）
 _KEY_CODES = range(150)
 
 
 def block_all() -> None:
     """屏蔽全部键盘按键（可重复调用，幂等）。"""
+    # keyboard 库较重且仅在硬核模式锁定时才需要，延迟到此处导入（加快冷启动）
+    import keyboard
+
     for code in _KEY_CODES:
         keyboard.block_key(code)
 
 
 def unblock_all() -> None:
     """解除全部键盘按键的屏蔽，与 block_all 配对使用。"""
+    import keyboard
+
     for code in _KEY_CODES:
         keyboard.unblock_key(code)

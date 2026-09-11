@@ -12,7 +12,6 @@ environ.setdefault("PYGAME_HIDE_SUPPORT_PROMPT", "1")  # 屏蔽 pygame 启动横
 from pathlib import Path
 
 from PySide6.QtCore import QThread
-import pygame
 
 from utils.win32 import bring_to_foreground
 
@@ -32,6 +31,9 @@ class BsodScreenSaver(QThread):
         self._stop_flag = True
 
     def run(self) -> None:
+        # pygame 较重且仅在屏保真正启动时才需要，延迟到此处导入（加快冷启动）
+        import pygame
+
         image_path = Path(__file__).resolve().parent / "assets" / "image.png"
         pygame.init()
         try:

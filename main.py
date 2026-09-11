@@ -1,20 +1,22 @@
-"""程序入口：主窗口只负责页面导航与生命周期调度，业务逻辑委托给 logic 包"""
+"""程序入口：主窗口只负责页面导航与生命周期调度，业务逻辑委托给 logic 包
+
+冷启动采用两阶段加载：阶段一仅导入 Qt 相关依赖，立即显示启动画面；
+阶段二再加载重依赖（qt_material 主题、logic 业务逻辑链），装配完
+主窗口后关闭启动画面。pygame / keyboard 等更重的库则延迟到
+屏保 / 硬核模式首次使用时才导入（见 module/ 各实现）。
+"""
 
 import os
 
-from PySide6.QtCore import QCoreApplication, QTranslator
-from PySide6.QtWidgets import QApplication, QMainWindow
+from PySide6.QtCore import QCoreApplication, Qt, QTimer, QTranslator
+from PySide6.QtGui import QPixmap
+from PySide6.QtWidgets import QApplication, QMainWindow, QSplashScreen
 
 from pages.main_window import Ui_MainWindow
 
-from logic import PomodoroLogic
-from logic.help import open_update_page, show_about, show_pomodoro_help
 from logic.settings import load_settings, save_settings
-from logic.tray import TrayController
 
 from utils import resource_path
-
-from qt_material import apply_stylesheet
 
 
 class MainWindow(QMainWindow):
@@ -22,6 +24,10 @@ class MainWindow(QMainWindow):
 
     def __init__(self):
         super().__init__()
+        # 重依赖延迟加载：logic 业务逻辑链较重，待启动画面出现后再导入
+        from logic import PomodoroLogic, TrayController
+        from logic.help import open_update_page, show_about, show_pomodoro_help
+
         # 创建 Ui_Form 的实例
         self.ui = Ui_MainWindow()
         # 将 UI 样式安装到自己身上
@@ -57,6 +63,9 @@ class MainWindow(QMainWindow):
         super().closeEvent(event)
 
 def light_theme():
+    # qt_material（连带 jinja2）导入较重，首次应用主题时才加载（加快冷启动）
+    from qt_material import apply_stylesheet
+
     # 设置亮色主题，这里设置两次主题才能正确显示汉字间距，切勿删除
     apply_stylesheet(app, theme='dark_red.xml')
     apply_stylesheet(app, theme='light_red.xml', invert_secondary=True)
@@ -64,6 +73,9 @@ def light_theme():
     save_settings(_settings)
 
 def dark_theme():
+    # qt_material（连带 jinja2）导入较重，首次应用主题时才加载（加快冷启动）
+    from qt_material import apply_stylesheet
+
     # 设置暗色主题，这里设置两次主题才能正确显示汉字间距，切勿删除
     apply_stylesheet(app, theme='light_red.xml', invert_secondary=True)
     apply_stylesheet(app, theme='dark_red.xml')
@@ -124,12 +136,33 @@ os.environ["QT_LOGGING_RULES"] = "qt.png.warning=false"
 # 创建 QApplication
 app = QApplication([])
 
-if __name__ == "__main__":
-    """应用入口：按持久化设置恢复语言与主题，再进入主循环"""
+# 主窗口：阶段二由 _startup 创建（创建前为 None，供语言切换函数判空）
+window = None
+
+# 启动画面：阶段一创建，两阶段加载期间给用户即时的视觉反馈
+splash = None
+
+
+def _startup():
+    """启动阶段二：加载重依赖并装配主窗口（此时启动画面已在屏）。"""
+    global window
     # 语言必须在创建窗口前应用：setupUi 末尾的 retranslateUi 才能直接产出对应语言
     _switch_language(_settings["language"])
     window = MainWindow()
-    # 按持久化设置恢复主题（默认亮色）
+    # 按持久化设置恢复主题（默认亮色）；qt_material 在此处才首次导入
     dark_theme() if _settings["theme"] == "dark" else light_theme()
     window.show()
+    splash.finish(window)
+
+
+if __name__ == "__main__":
+    """应用入口：先以纯 Qt 依赖显示启动画面，再延迟加载其余模块进入主循环"""
+    # 阶段一：仅 Qt 依赖即可拉起启动画面，用户第一时间看到程序已启动
+    splash = QSplashScreen(QPixmap(str(resource_path("icon/logo.png"))))
+    splash.show()
+    splash.showMessage(QCoreApplication.translate("MainWindow", "正在启动，请稍候…"),
+                       alignment=Qt.AlignmentFlag.AlignBottom | Qt.AlignmentFlag.AlignHCenter)
+    app.processEvents()  # 立即绘制启动画面，不等事件循环
+    # 阶段二：推迟到事件循环启动后执行，保证启动画面先行渲染、首帧不被阻塞
+    QTimer.singleShot(0, _startup)
     app.exec()

@@ -25,6 +25,7 @@ ICON = ROOT / "icon" / "logo.ico"
 # falls back to the bundled presets when no user copy exists.
 DATA_FILES = [
     str(ROOT / "icon" / "logo.ico") + ";icon",
+    str(ROOT / "icon" / "logo.png") + ";icon",  # startup splash image
     str(ROOT / "module" / "blue_screen" / "assets") + ";module/blue_screen/assets",
     str(ROOT / "data" / "presets.json") + ";data",
     str(ROOT / "translate" / "app.qm") + ";translate",

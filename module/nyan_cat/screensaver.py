@@ -11,16 +11,11 @@ from os import environ
 environ.setdefault("PYGAME_HIDE_SUPPORT_PROMPT", "1")  # 屏蔽 pygame 启动横幅
 
 from PySide6.QtCore import QThread
-import pygame
 
 from utils.win32 import bring_to_foreground
 
-from .nyancat import Nyancat
-from .rainbow import Rainbow
-from .star_manager import StarManager
-
 FPS = 12                                  # 原实现的动画帧率
-BACKGROUND_COLOR = pygame.Color(15, 77, 143)
+BACKGROUND_COLOR = (15, 77, 143)          # 背景色（RGB，pygame 延迟导入故存元组）
 NUM_STARS = 20                            # 同屏星星数量
 STAR_VELOCITY_X = -5                      # 星星水平速度
 
@@ -37,6 +32,12 @@ class NyanCatScreenSaver(QThread):
         self._stop_flag = True
 
     def run(self) -> None:
+        # pygame 及动画帧数据较重，仅在屏保真正启动时才导入（加快冷启动）
+        import pygame
+        from .nyancat import Nyancat
+        from .rainbow import Rainbow
+        from .star_manager import StarManager
+
         pygame.init()
         try:
             pygame.mouse.set_visible(False)
